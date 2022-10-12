@@ -4,7 +4,7 @@ interface Props {
   isVisible: boolean;
 }
 
-const StyledSideNav = styled.div<Props>`
+const Container = styled.div<Props>`
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -12,11 +12,12 @@ const StyledSideNav = styled.div<Props>`
   height: 100%;
   width: 250px;
   z-index: 1000;
-  left: ${(props) => (props.isVisible ? 0 : "250px")};
+  left: ${(props) => (props.isVisible ? 0 : "-250px")};
   overflow-x: hidden;
   transition-duration: 0.3s;
   scrollbar-color: white transparent;
   scrollbar-width: thin;
+  background-color: ${(props) => props.theme.sidebar.background};
 
   &::-webkit-scrollbar {
     width: 6px;
@@ -29,4 +30,4 @@ const StyledSideNav = styled.div<Props>`
   }
 `;
 
-export default StyledSideNav;
+export default Container;
