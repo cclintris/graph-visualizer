@@ -6,13 +6,33 @@ import ScrollContainer from "./ScrollContainer";
 import ToggleButton from "./ToggleButton";
 import Arrow from "./Arrow";
 import ItemText from "./ItemText";
-import { Row } from "../common";
+import { Row, Dropdown } from "../common";
 
-const SideNav: React.FC<{}> = (): ReactElement => {
+import Algorithms from "../../model/Algorithms";
+
+interface Props {
+  selectedAlgorithm: Algorithms;
+  setSelectedAlgorithm: Function;
+}
+
+const supportingAlgorithms: Array<Algorithms> = [
+  Algorithms.dfs,
+  Algorithms.bfs,
+  Algorithms.dijkstra,
+  Algorithms.bellmanFord,
+  Algorithms.prim,
+];
+
+const SideNav: React.FC<Props> = (props: Props): ReactElement => {
   const [isVisible, setIsVisible] = useState<boolean>(true);
 
   const toggleVisible = () => {
     setIsVisible((prev) => !prev);
+  };
+
+  const setSelectedOption = (val: number) => {
+    const newSelectedAlgorithm = supportingAlgorithms[val];
+    props.setSelectedAlgorithm(newSelectedAlgorithm);
   };
 
   return (
@@ -23,7 +43,13 @@ const SideNav: React.FC<{}> = (): ReactElement => {
         </ToggleButton>
         <ItemText>Algorithm</ItemText>
         <Row justifyContent="center">
-          
+          <Dropdown
+            options={supportingAlgorithms}
+            selectedOption={supportingAlgorithms.indexOf(
+              props.selectedAlgorithm
+            )}
+            setSelectedOption={setSelectedOption}
+          />
         </Row>
       </ScrollContainer>
     </Container>
